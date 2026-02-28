@@ -272,4 +272,5 @@ saveShape(balls,file)
 with open(file, 'a') as f:
     f.write(f"\nSeed : {Seed}\n")
 if Time: sim.hold(text="Time: " + c.time(),filename=img)
+
 else: sim.hold(filename=img)
