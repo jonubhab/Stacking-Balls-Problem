@@ -10,7 +10,8 @@ Rotate=False    #Ball Rotates
 Local=False      #Ball reaches only the nearest local energy minima upon touching other balls
 Dynamic=False   #Drop Area depends on existing shape
 Gaussian=False   #Ball Drop is normalized over drop area
-Hypothetic=True
+Hypothetic=True  #Probability of getting a shape is directly proportional to the square of the number of ways to approach it.
+
 #Assumed Parameters
 A=2*N*R*2**0.5   #Drop Area (effects only when Dynamic=False) (Suggested Value = 8*R*2**0.5)
 H=(2+N*2**0.5)*R   #Drop Height (effects only when Dynamic=False)
@@ -73,7 +74,7 @@ for iteration in range(1,Runs+1):
                     shape = phy.Circle(self.body, C.metre(R))
                 else:
                     self.body = phy.Body()
-                    shape = phy.Circle(self.body, C.metre(R))  # 3
+                    shape = phy.Circle(self.body, C.metre(R))
                     shape.mass = M
                 if Hypothetic:
                     self.body.position = C.P(next(P) + (r.random() * 2.8 - 1.4) * R, H)
@@ -81,8 +82,6 @@ for iteration in range(1,Runs+1):
                     self.body.position = C.P(truncnorm(-2, 2, loc=0, scale=(Ar-Al)/4).rvs(), H)
                 else:
                     self.body.position = C.P(r.random() * (Ar - Al) + Al, H)
-                #  # 4
-                # if not Rotate: self.body.moment=math.inf
                 shape.friction = Fb
                 shape.elasticity = Eb
                 shape.collision_type = 1
@@ -99,17 +98,12 @@ for iteration in range(1,Runs+1):
                 s = self.body.velocity.length < C.metre(dv) and self.body.force.length < C.metre(dF)
                 for i in range(len(self.s)): yield s
 
-        '''
-        def update(self):
-            for i in range(len(self.s)): map(next, self.s)
-        '''
 
         def isStable(self):
             if self.body.body_type is phy.Body.STATIC: return True
             if self.body.position[1] < C.P(y=H) + 5: return False
             s = all(list(map(next, self.s)))
             for i in range(len(self.s) - 1): map(next, self.s)
-            # if s:print(c.time())
             if Fix:
                 if s:
                     self.pos = C.revert(*self.body.position)
@@ -134,7 +128,7 @@ for iteration in range(1,Runs+1):
     def shady_stuff():
         global Fb, Eb, Fw, Ew, file,A,H,Al,Ar,left,right,P
         if Hypothetic: P = prm.tableau(N, R)
-        if Dynamic: #
+        if Dynamic: 
             A=Al=Ar=0
             left = 1
             right = -1
@@ -232,27 +226,7 @@ for iteration in range(1,Runs+1):
                         Ar = right + R * 2 ** 0.5
 
 
-    '''
-    def mode():
-        global Animation
-        Animation=False if Animation else True
-
-    def run():
-        global Running
-        if Animation:
-            sim.show()
-            sim.simulate(touche,hellyeah)
-        else:
-            k.add_hotkey('space', change, suppress=True)
-            sim.blind(touche,hellyeah)
-            Running=True
-
-    def change():
-        global Running,Animation
-        Running=False
-        Animation=False if Animation else True
-        run()
-    '''
+   
 
     # Real Code
     shady_stuff()
@@ -282,4 +256,5 @@ for iteration in range(1,Runs+1):
     with open(file, 'a') as f:
         f.write(f"\nSeed : {my_seed}\n")
         f.write("\n--- TRANSCRIPT ---\n")
+
     print(f"Run #{iteration} successful")
