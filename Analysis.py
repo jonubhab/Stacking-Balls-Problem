@@ -23,13 +23,11 @@ def data():
                 Data=[]
                 Read = True
             if l == "--- TRANSCRIPT ---":
-                #seed=Data[-3][7:]
                 Data = Data[:-2]
                 e = []
                 for j in Data:
                     e.append(list(map(float, j[1:-1].strip().split(','))))
                 yield e
-                #yield seed
                 Data = []
                 Read = False
 
@@ -42,7 +40,6 @@ class Shape:
     def __init__(self,s):
         self.s=s
         self.n=1
-        #self.ex=next(d)
         self.seq=[Sequence([i for i in range(N)])]#,self.ex)]
 
     def isSame(self,s):
@@ -60,11 +57,10 @@ class Shape:
                 f = False
                 next(d)
                 break
-        if f: self.seq.append(Sequence(l))#,next(d)))
+        if f: self.seq.append(Sequence(l))
 
     def display(self):
         print(self.s)
-        #print(f"Example Seed : {self.ex}")
         print(f"Frequency: {self.n}")
         print(f"Probability: {self.n/n*100}%")
         print(f"No. of Sequences: {len(self.seq)}")
@@ -76,10 +72,9 @@ class Shape:
 
 
 class Sequence:
-    def __init__(self,l):  #,seed):
+    def __init__(self,l):
         self.l=l
         self.n=1
-        #self.ex=seed
 
     def isSame(self,l):
         b=all([self.l[i]==l[i] for i in range(N)])
@@ -91,7 +86,6 @@ class Sequence:
 
     def display(self):
         print(self.l)
-        #print(f"Example Seed : {self.ex}")
         print(f"Frequency: {self.n}")
 
 
@@ -155,3 +149,4 @@ while True:
         ball(pos,S,C)
     sim.show()
     sim.hold()
+
