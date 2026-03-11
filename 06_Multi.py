@@ -17,7 +17,7 @@ import Simulation as s
 from Tools import *
 import math
 from Data import *
-import Permute as prm
+import 04_Permute as prm
 
 
 
@@ -102,3 +102,4 @@ for iteration in range(1,Runs+1):
         f.write("\n--- TRANSCRIPT ---\n")
 
     print(f"Run #{iteration} successful")
+
