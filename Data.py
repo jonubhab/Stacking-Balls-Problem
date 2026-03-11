@@ -11,17 +11,12 @@ def encrypt(**kwargs):
     return code,kwargs
 
 def Data(code,kwargs):
-    folder_path = 'Data'  # Replace with the actual path to your folder
+    folder_path = 'Data'
 
-    # Iterate over all files in the directory
     for filename in os.listdir(folder_path):
-        # Construct the full file path by joining the folder path and the filename
         file_path = os.path.join(folder_path, filename)
-
-        # Check if the path is a file (and not a subdirectory)
         if os.path.isfile(file_path):
             try:
-                # Open and read the file (example action)
                 with open(file_path, 'r') as file:
                     c = file.readlines()[0].strip()
                     if c == code:
@@ -46,8 +41,8 @@ class DualLogger:
         self.buffer = io.StringIO()
 
     def write(self, message):
-        self.terminal.write(message)  # Print to screen
-        self.buffer.write(message)    # Save to memory buffer
+        self.terminal.write(message)
+        self.buffer.write(message)   
 
     def flush(self):
         self.terminal.flush()
@@ -56,14 +51,13 @@ class DualLogger:
         return self.buffer.getvalue()
 
 
-def save(file):    # 1. Setup capturing for both stdout and stderr
+def save(file):
     stdout_logger = DualLogger(sys.stdout)
     stderr_logger = DualLogger(sys.stderr)
 
     sys.stdout = stdout_logger
     sys.stderr = stderr_logger
 
-    # 2. Define the exit function to save everything to a file at the end
     def save_session_to_file():
         with open(file, "a") as f:
             s = stdout_logger.get_captured_text()
@@ -75,10 +69,10 @@ def save(file):    # 1. Setup capturing for both stdout and stderr
                 f.write(s)
             f.write("_" * 100 + "\n")
 
-    # Register to run automatically on exit or crash
     atexit.register(save_session_to_file)
 
 def saveShape(balls,file):
     with open(file,'a') as f:
         for i in balls:
+
             f.write(str(i.position())+"\n")
