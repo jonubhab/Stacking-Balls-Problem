@@ -10,7 +10,8 @@ Rotate=False    #Ball Rotates
 Local=False      #Ball reaches only the nearest local energy minima upon touching other balls
 Dynamic=False   #Drop Area depends on existing shape
 Gaussian=False   #Ball Drop is normalized over drop area
-Hypothetic=True
+Hypothetic=True    #Probability of getting a shape is directly proportional to the square of the number of ways to approach it.
+
 #Assumed Parameters
 A=2*(N-1)*R*2**0.5   #Drop Area (effects only when Dynamic=False) (Suggested Value = 2*(N-1)*R*2**0.5)
 H=(2+N*2**0.5)*R   #Drop Height (effects only when Dynamic=False) (Suggested Value = (2+N*2**0.5)*R)
@@ -30,7 +31,7 @@ dF=M*dv*dt          #Maximum Force for stability
 st=2                #Time taken in account to confirm stability
 Animation=True      #Shows Animation or direct result
 Scale=50           #Number of pixels making up one metre
-Time=False          #Shows Time
+Time=True          #Shows Time
 Text=True          #Prints status(Turning it off with Animation=False might test your patience)
 Seed=None           #Turn in value to reproduce result
 
@@ -221,28 +222,6 @@ def local(vel=None,change=None,**kwargs):
                     right = pos
                     Ar = right + R * 2 ** 0.5
 
-'''
-def mode():
-    global Animation
-    Animation=False if Animation else True
-
-def run():
-    global Running
-    if Animation:
-        sim.show()
-        sim.simulate(touche,hellyeah)
-    else:
-        k.add_hotkey('space', change, suppress=True)
-        sim.blind(touche,hellyeah)
-        Running=True
-
-def change():
-    global Running,Animation
-    Running=False
-    Animation=False if Animation else True
-    run()
-'''
-
 #Real Code
 shady_stuff()
 wedge()
@@ -274,3 +253,4 @@ with open(file, 'a') as f:
 if Time: sim.hold(text="Time: " + c.time(),filename=img)
 
 else: sim.hold(filename=img)
+
