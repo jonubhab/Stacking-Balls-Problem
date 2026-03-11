@@ -44,7 +44,7 @@ import math
 from functools import partial
 from Data import *
 from scipy.stats import truncnorm
-import Permute as prm
+import 04_Permute as prm
 
 
 #Initializing Simulation
@@ -245,5 +245,6 @@ with open(file, 'a') as f:
 if Time: sim.hold(text="Time: " + c.time(),filename=img)
 
 else: sim.hold(filename=img)
+
 
 
