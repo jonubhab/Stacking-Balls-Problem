@@ -2,7 +2,6 @@ import sys
 import pygame as pg
 import pymunk.pygame_util
 from Tools import *
-import keyboard
 
 
 class Simulation:
@@ -52,30 +51,9 @@ class Simulation:
     def blind(self, event=None, condition=lambda: True,space=None):
 
         if event is None: event = self.buff
-        #if space is None: space = self.buff
-        '''
-        def change():
-            keyboard.remove_hotkey('space')
-            self.show()
-            space()
-            self.simulate(event, condition)
-
-        keyboard.add_hotkey('space',change,suppress=True)
-        '''
+            
         while condition():
-            '''
-            try:  # used try so that if user pressed other than the given key error will not be shown
-                if simulate:
-                    self.show()
-                    self.simulate(event,condition)
-                    break
-            except:
-                pass
-                '''
-
-
             self.space.step(Simulation.dt)
-
             event()
 
 
@@ -87,7 +65,6 @@ class Simulation:
         while cond():
             for event in pg.event.get():
                 if event.type == pg.QUIT:
-                    # If the user clicks the close button, break the loop and end the program
                     pg.quit()
                     return
                 elif event.type == pg.KEYDOWN and event.key == pg.K_p:
@@ -106,4 +83,5 @@ class Simulation:
     def handle(self,arbiter, space, data,event=None):
         if event is None: event = self.buff
         event(arbiter=arbiter,space=space,data=data)
+
         return
