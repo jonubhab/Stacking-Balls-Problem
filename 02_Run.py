@@ -41,7 +41,7 @@ import sys
 from functools import partial
 from Data import *
 from scipy.stats import truncnorm
-import Permute as prm
+import 04_Permute as prm
 
 #Initializing Simulation
 Animation=False      #Shows Animation or direct result
@@ -258,3 +258,4 @@ for iteration in range(1,Runs+1):
         f.write("\n--- TRANSCRIPT ---\n")
 
     print(f"Run #{iteration} successful")
+
