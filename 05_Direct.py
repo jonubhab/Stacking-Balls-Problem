@@ -20,7 +20,7 @@ import Simulation as s
 from Tools import *
 import math
 from Data import *
-import Permute as prm
+import 04_Permute as prm
 
 
 #Initializing Simulation
@@ -111,3 +111,4 @@ saveShape(balls,file)
 if Time: sim.hold(text="Time: " + c.time(),filename=img)
 
 else: sim.hold(filename=img)
+
