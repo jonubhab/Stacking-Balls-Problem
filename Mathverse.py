@@ -46,44 +46,16 @@ class ball():
         if n.val != N:
             n += 1
             self.body = phy.Body(1,math.inf)
-            #self.body.position = C.P(0, H)
             self.body.position = C.P(next(P), next(P)+H)
-            shape = phy.Circle(self.body, C.metre(R))  # 3
-            shape.friction=0.1           #shape.mass = M  # 4
+            shape = phy.Circle(self.body, C.metre(R))  
+            shape.friction=0.1
             shape.elasticity=0
             S.add(self.body, shape)
             balls.append(self)
-            '''
-            self.s=[self.stability() for i in range(int(st/dt))]
-            for i,s in enumerate(self.s):
-                for j in range(i): next(s)
-            '''
             self.id=n.val
             if Text: print(f"{c.time()} : Added Ball #{self.id}")
-    '''
-    def stability(self):
-        while True:
-            s=self.body.velocity.length < C.metre(dv) and self.body.force.length < C.metre(dF)
-            for i in range(len(self.s)): yield s
 
-
-    def isStable(self):
-        if self.body.body_type is phy.Body.STATIC: return True
-        if self.body.position[1]<C.P(y=H)+5: return False
-        s= all(list(map(next,self.s)))
-        for i in range(len(self.s)-1): map(next,self.s)
-        return s
-
-    def inBoundary(self):
-        if self.body.body_type is phy.Body.STATIC: return True
-        pos=self.body.position
-        pos=C.revert(*pos)
-        b = pos[1]>=pos[0]
-        if (not b) and Text: print(f"{c.time()} : Ball #{self.id} fell off from the wedge.")
-        return b
-    '''
     def position(self):
-        #if self.body.body_type is phy.Body.STATIC: return self.pos
         return C.revert(*self.body.position)
 
 #Some Sorcery
@@ -110,34 +82,16 @@ def wedge():
 def touche():
     global Running
     c.tick()
-    #sf=balls[-1].isStable()
-    #ib=balls[-1].inBoundary()
-    if Animation and Time: sim.display(next(t)) #+f"\nStable:{sf}")
+    if Animation and Time: sim.display(next(t))
     else: next(t)
-    '''
-    if sf:
-        if n.val<N: ball()
-        else: Running=False
-    '''
-    if n.val<N: #elif
+    if n.val<N:
         if 0<= c.t.val-T*n.val < dt:ball()
     elif c.t.val>(N+1)*T:
         balls[-1].body.body_type = phy.Body.STATIC
         Running=False
-    '''
-    else:
-        if sf: Running=False
-    if not ib:
-        regret()
-    '''
 
 def hellyeah():
     return Running
-'''
-def regret():
-    sim.show()
-    sys.exit(sim.hold(text="Time: " + c.time()))
-'''
 
 #Real Code
 shady_stuff()
@@ -155,4 +109,5 @@ else:
     sim.show()
 saveShape(balls,file)
 if Time: sim.hold(text="Time: " + c.time(),filename=img)
+
 else: sim.hold(filename=img)
