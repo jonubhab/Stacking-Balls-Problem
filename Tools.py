@@ -1,4 +1,3 @@
-import pygame as pg
 import Simulation
 
 
@@ -83,4 +82,5 @@ class Timer:
 
     def run(self):
         self.run = True
+
 
