@@ -43,44 +43,14 @@ for iteration in range(1,Runs+1):
             if n.val != N:
                 n += 1
                 self.body = phy.Body(1, math.inf)
-                # self.body.position = C.P(0, H)
                 self.body.position = C.P(next(P), next(P)+2*R)
-                shape = phy.Circle(self.body, C.metre(R))  # 3
+                shape = phy.Circle(self.body, C.metre(R))
                 shape.friction=0.1
                 shape.elasticity=0
-                # shape.mass = M  # 4
                 S.add(self.body, shape)
                 balls.append(self)
-                '''
-                self.s=[self.stability() for i in range(int(st/dt))]
-                for i,s in enumerate(self.s):
-                    for j in range(i): next(s)
-                '''
                 self.id = n.val
-
-        '''
-        def stability(self):
-            while True:
-                s=self.body.velocity.length < C.metre(dv) and self.body.force.length < C.metre(dF)
-                for i in range(len(self.s)): yield s
-
-
-        def isStable(self):
-            if self.body.body_type is phy.Body.STATIC: return True
-            if self.body.position[1]<C.P(y=H)+5: return False
-            s= all(list(map(next,self.s)))
-            for i in range(len(self.s)-1): map(next,self.s)
-            return s
-
-        def inBoundary(self):
-            if self.body.body_type is phy.Body.STATIC: return True
-            pos=self.body.position
-            pos=C.revert(*pos)
-            b = pos[1]>=pos[0]
-            if (not b) and Text: print(f"{c.time()} : Ball #{self.id} fell off from the wedge.")
-            return b
-        '''
-
+                
         def position(self):
             # if self.body.body_type is phy.Body.STATIC: return self.pos
             return C.revert(*self.body.position)
@@ -116,13 +86,6 @@ for iteration in range(1,Runs+1):
         elif c.t.val > (N + 1) * T:
             balls[-1].body.body_type = phy.Body.STATIC
             Running = False
-        '''
-        else:
-            if sf: Running=False
-        if not ib:
-            regret()
-        '''
-
 
     def hellyeah():
         return Running
@@ -137,4 +100,5 @@ for iteration in range(1,Runs+1):
     saveShape(balls, file)
     with open(file, 'a') as f:
         f.write("\n--- TRANSCRIPT ---\n")
+
     print(f"Run #{iteration} successful")
