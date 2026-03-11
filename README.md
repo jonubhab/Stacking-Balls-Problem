@@ -18,4 +18,4 @@ Other Files:
    2) class Counter: Generates global counter variable with scope across classes.
    3) class Timer: Manages the clock in the experiments.
 2) Simulation.py: Runs and displays the simulation
-3) Data: Manages and stores the data from each experiment.
+3) Data.py: Manages and stores the data from each experiment.
