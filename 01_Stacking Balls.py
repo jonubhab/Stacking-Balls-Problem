@@ -69,15 +69,12 @@ class ball():
             n += 1
             if not Rotate: self.body = phy.Body(M,math.inf)
             else: self.body = phy.Body(M)
-            #self.body.position = C.P(0, H)
             if Hypothetic:
                 self.body.position = C.P(next(P)+(r.random()*2.8-1.4)*R, H)
             elif Gaussian:
                 self.body.position = C.P(truncnorm(-2, 2, loc=0, scale=(Ar-Al)/4).rvs(), H)
-            else: self.body.position = C.P(r.random() * (Ar-Al) + Al, H) #
-            shape = phy.Circle(self.body, C.metre(R))  # 3
-            #shape.mass = M  # 4
-            #if not Rotate: self.body.moment=math.inf
+            else: self.body.position = C.P(r.random() * (Ar-Al) + Al, H) 
+            shape = phy.Circle(self.body, C.metre(R))  
             shape.friction = Fb
             shape.elasticity = Eb
             shape.collision_type = 1
@@ -94,17 +91,12 @@ class ball():
             s=self.body.velocity.length < C.metre(dv) and self.body.force.length < C.metre(dF)
             for i in range(len(self.s)): yield s
 
-    '''
-    def update(self):
-        for i in range(len(self.s)): map(next, self.s)
-    '''
 
     def isStable(self):
         if self.body.body_type is phy.Body.STATIC: return True
         if self.body.position[1]<C.P(y=H)+5: return False
         s= all(list(map(next,self.s)))
         for i in range(len(self.s)-1): map(next,self.s)
-        #if s:print(c.time())
         if Fix:
             if s:
                 self.pos=C.revert(*self.body.position)
@@ -253,4 +245,5 @@ with open(file, 'a') as f:
 if Time: sim.hold(text="Time: " + c.time(),filename=img)
 
 else: sim.hold(filename=img)
+
 
